@@ -1,0 +1,60 @@
+services:
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=mapproject_db
+      - POSTGRES_USER=mapproject_user
+      - POSTGRES_PASSWORD=mapproject_password
+    # Можна розкоментувати, щоб підключатися до БД з вашого комп'ютера
+    # ports:
+    #   - "5432:5432"
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Використовуємо скрипт, щоб дочекатися готовності БД
+    command: ["/app/wait-for-postgres.sh", "db", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - ALLOWED_HOSTS=localhost,127.0.0.1,backend
+      - DB_HOST=db
+      - DB_NAME=mapproject_db
+      - DB_USER=mapproject_user
+      - DB_PASSWORD=mapproject_password
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/admin/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      db:
+        condition: service_started
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_GOOGLE_MAPS_API_KEY=${VITE_GOOGLE_MAPS_API_KEY}
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

@@ -1,0 +1,105 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Light Theme */
+  --color-text: #213547;
+  --color-background: #ffffff;
+  --color-background-soft: #f9f9f9;
+  --color-border: #ccc;
+  --color-border-hover: #747bff;
+  --color-background-hover: #e0e0e0;
+  --color-link: #646cff;
+  --color-link-hover: #535bf2;
+
+  --button-primary-bg: #007bff;
+  --button-primary-text: white;
+  --button-secondary-bg: white;
+  --button-secondary-text: #333;
+
+  --info-window-header: #333;
+  --info-window-text: #555;
+  --input-bg: #fff;
+  --info-window-bg: #fff;
+  --input-text: #000;
+
+  /* Button-specific colors */
+  --color-button-edit: #ffe88c;
+  --color-button-delete: #ff9d96;
+  --color-button-comments: #a2f9ff;
+  --color-button-save: #a1ffa4;
+  --color-button-cancel: #ffa7a0;
+}
+
+:root.dark {
+  /* Dark Theme */
+  --color-text: rgba(255, 255, 255, 0.87);
+  --color-background: #242424;
+  --color-background-soft: #1a1a1a;
+  --color-border: #555;
+  --color-border-hover: #646cff;
+  --color-background-hover: #4a4a4a;
+
+  --button-secondary-bg: #333;
+  --button-secondary-text: rgba(255, 255, 255, 0.87);
+
+  --info-window-header: rgba(255, 255, 255, 0.87);
+  --info-window-text: rgba(255, 255, 255, 0.67);
+  --input-bg: #333;
+  --info-window-bg: var(--color-background-soft);
+  --input-text: rgba(255, 255, 255, 0.87);
+
+  /* Button-specific colors for dark theme */
+  --color-button-edit: #8c7e4d;
+  --color-button-delete: #9e5d59;
+  --color-button-comments: #5c8b9c;
+  --color-button-save: #5b8c5d;
+  --color-button-cancel: #9e6560;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-link);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--color-link-hover);
+}
+
+body {
+  margin: 0;
+  /* Прибираємо flex-центрування, щоб дозволити нормальний потік документа */
+  min-height: 100vh;
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--color-background-soft);
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: var(--color-border-hover);
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}

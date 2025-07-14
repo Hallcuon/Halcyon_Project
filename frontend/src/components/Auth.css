@@ -1,0 +1,366 @@
+.auth-page-wrapper {
+  /* Прибираємо фон з обгортки, щоб відео було видно. */
+  /* background-color: #121212; */
+  overflow-x: hidden; /* Запобігає появі горизонтального скролу */
+}
+
+.auth-container {
+  position: relative; /* Потрібно для позиціонування відео та градієнту */
+  height: 100vh; /* Займає всю висоту першого екрану */
+  overflow: hidden; /* Ховає частини відео, що виходять за межі */
+  display: flex;
+  flex-direction: column; /* Ставимо елементи один під одним */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  gap: 40px; /* Простір між логотипом та формою */
+}
+
+/* Напівпрозорий шар для плавного затемнення */
+.auth-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh; /* Висота градієнту */
+  background: linear-gradient(to bottom, transparent, #121212);
+  z-index: 0; /* Розміщуємо під контентом, але над відео */
+}
+
+.auth-background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  transform: translateX(-50%) translateY(-50%);
+  background-size: cover;
+}
+
+/* Стилі для фонового зображення, щоб воно поводилося так само, як відео */
+.auth-background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Розтягує зображення, зберігаючи пропорції */
+  z-index: -1;
+}
+
+.auth-form-container {
+  /*
+    Для ефекту "матового скла" потрібен напівпрозорий фон.
+    backdrop-filter розмиє все, що знаходиться за цим елементом.
+  */
+  background-color: rgba(40, 40, 40, 0.6); /* Завжди темний напівпрозорий фон */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Для підтримки Safari */
+
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1; /* Розміщуємо форму над градієнтом */
+}
+
+.auth-logo {
+  /* Стилі для логотипа, який тепер знаходиться поза формою */
+  max-width: 350px;
+  width: 70%; /* Ширина відносно екрану, але не більше max-width */
+  height: auto;
+  z-index: 1; /* Розміщуємо логотип над градієнтом */
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.auth-tabs button {
+  flex-grow: 1;
+  padding: 15px;
+  border: none;
+  background: none;
+  color: #ccc; /* Статичний світлий колір для неактивної вкладки */
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s, border-bottom 0.2s;
+  border-bottom: 3px solid transparent;
+}
+
+.auth-tabs button.active {
+  color: #fff; /* Статичний білий колір для активної вкладки */
+  border-bottom-color: #6b4caf; /* Статичний основний колір */
+}
+
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #fff; /* Статичний білий колір */
+}
+
+.auth-error {
+  color: #f4a536;
+  background-color: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #ccc; /* Статичний світлий колір */
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.2); /* Темний напівпрозорий фон для поля вводу */
+  color: #fff; /* Білий текст */
+  box-sizing: border-box;
+}
+
+.auth-submit-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: #6a4caf; /* Статичний основний колір */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.auth-submit-btn:hover {
+  opacity: 0.9;
+}
+
+.auth-submit-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.auth-submit-btn:disabled:hover {
+  opacity: 0.5;
+}
+
+/* --- Нова інформаційна секція --- */
+.info-section {
+  padding: 80px 40px;
+  display: flex;
+  flex-direction: column; /* Розташовуємо елементи вертикально */
+  align-items: center; /* Центруємо їх по горизонталі */
+  gap: 30px;
+  background-color: #121212; /* Суцільний темний фон */
+}
+
+.info-section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.info-card {
+  position: relative; /* Потрібно для позиціонування декоративних іконок */
+  /* Дозволяємо декораціям виходити за межі картки */
+  /* Це може бути не потрібно, якщо overflow не встановлено деінде, але для надійності додаємо */
+  overflow: visible;
+  background-color: #1e1e1e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 25px;
+  width: 100%;
+  max-width: 1000px; /* Робимо картки ширшими */
+  color: #fff;
+}
+
+/* Переконуємося, що контент картки (текст) знаходиться над декораціями */
+.info-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Спільні стилі для всіх декоративних іконок */
+.info-card::before {
+  content: '';
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 1; /* Робимо їх напівпрозорими, щоб не заважали. Можна змінити. */
+  z-index: 1; /* Розміщуємо їх під контентом */
+  pointer-events: none; /* Іконки не повинні перехоплювати кліки */
+}
+
+/* Іконка для першої картки (зліва зверху) */
+.info-section .info-card:nth-of-type(1)::before {
+  background-image: url('/gps1.png'); /* Якщо у вас .png, змініть розширення */
+  width: 150px;
+  height: 150px;
+  top: -60px;
+  left: -50px;
+  transform: rotate(-30deg);
+}
+
+/* Іконка для другої картки (справа знизу) */
+.info-section .info-card:nth-of-type(2)::before {
+  background-image: url('/gps2.png'); /* Якщо у вас .png, змініть розширення */
+  width: 180px;
+  height: 180px;
+  bottom: -20px;
+  right: -70px;
+  transform: rotate(25deg);
+}
+
+/* Іконка для третьої картки (зліва по центру) */
+.info-section .info-card:nth-of-type(3)::before {
+  background-image: url('/gps3.png'); /* Якщо у вас .png, змініть розширення */
+  width: 130px;
+  height: 130px;
+  top: 50%;
+  left: -60px;
+  transform: translateY(-50%) rotate(-15deg);
+}
+
+.info-card h3 {
+  position: relative; /* Потрібно для позиціонування лінії */
+  text-align: center;
+  margin-top: 0;
+  color: #fff;
+  /* Прибираємо стару лінію і змінюємо відступ, щоб було місце для нової */
+  border-bottom: none;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.info-card h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0; /* Розміщуємо лінію внизу h3 */
+  left: 50%; /* Центруємо лінію */
+  transform: translateX(-50%);
+  width: 60px; /* Встановлюємо бажану ширину лінії. Можете змінити це значення. */
+  height: 2px; /* Товщина лінії */
+  background-color: #9487af; /* Колір лінії */
+  border-radius: 1px; /* Злегка заокруглюємо кінці */
+}
+
+.info-card p {
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* --- Footer --- */
+.auth-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #121212;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* --- Terms of Service --- */
+.terms-agreement {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.terms-agreement input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.terms-link {
+  color: #a991d4;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.terms-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.terms-modal-content {
+  background-color: #1e1e1e;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  color: #fff;
+  position: relative;
+}
+
+.terms-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .auth-logo {
+    max-width: 250px;
+  }
+
+  .auth-form-container {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .info-section {
+    padding: 60px 20px;
+  }
+
+  .info-section-title {
+    font-size: 1.8rem;
+  }
+
+  .info-card {
+    padding: 20px;
+  }
+}

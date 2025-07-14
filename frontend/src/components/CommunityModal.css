@@ -1,0 +1,117 @@
+.community-modal-content {
+  background: var(--color-background);
+  padding: 25px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.community-modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.community-progress-section {
+  margin-bottom: 25px;
+}
+
+.community-progress-section .progress-text {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+
+.community-progress-section .progress-bar-wrapper {
+  height: 20px;
+  background-color: var(--color-background-soft);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.community-progress-section .progress-bar {
+  height: 100%;
+  background-color: var(--button-primary-bg);
+  border-radius: 10px;
+  transition: width 0.5s ease-in-out;
+}
+
+.leaderboard-section h3 {
+  text-align: center;
+  color: var(--info-window-header);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.leaderboard-item:not(:last-child) {
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.leaderboard-item:hover {
+  background-color: var(--color-background-hover);
+}
+
+.leaderboard-rank {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--info-window-text);
+  width: 30px;
+  text-align: center;
+}
+
+.leaderboard-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 15px;
+}
+
+.leaderboard-username {
+  flex-grow: 1;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.leaderboard-score {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--button-primary-bg);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.leaderboard-score img {
+  width: 20px;
+  height: 20px;
+}
+
+.leaderboard-empty {
+  text-align: center;
+  color: var(--info-window-text);
+  padding: 20px;
+}

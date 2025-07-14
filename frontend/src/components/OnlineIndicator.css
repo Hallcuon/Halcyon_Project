@@ -1,0 +1,100 @@
+.online-indicator-container {
+  position: relative;
+}
+
+.online-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  font-weight: 500;
+  color: var(--button-secondary-text);
+  cursor: default;
+  user-select: none;
+}
+
+.online-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #4CAF50; /* Green */
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+/* Tooltip styles */
+.online-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  width: 200px;
+  background-color: var(--color-background-soft);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.online-indicator-container:hover .online-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-header {
+  font-weight: bold;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.online-tooltip ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.online-tooltip li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.tooltip-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tooltip-empty {
+  margin: 0;
+  font-style: italic;
+  color: var(--info-window-text);
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .online-tooltip {
+    /*
+      On mobile, the parent container is centered.
+      We need to re-center the tooltip under it to prevent it from going off-screen.
+    */
+    left: 15vh;
+    top: 15vh; /* Вирівнюємо по лівому краю батьківського елемента */
+    transform: none; /* Скидаємо будь-який зсув */
+  }
+}

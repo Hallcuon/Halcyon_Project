@@ -1,0 +1,15 @@
+cd D:\MapProject
+
+MapProject/Scripts/activate
+
+daphne -p 8000 MapProject.asgi:application
+
+cd frontend
+
+python manage.py runserver
+
+npm run dev
+
+python manage.py reset_project_data --keep-superuser Admin
+
+ngrok http 5173

@@ -1,0 +1,244 @@
+/* --- General Styles --- */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+/* --- Стилі для кнопок керування --- */
+.map-controls-center {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 5px; /* Менший відступ для кнопок всередині панелі */
+  background-color: var(--button-secondary-bg);
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.map-controls-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Збільшимо відступ для кращого вигляду */
+  background-color: var(--button-secondary-bg);
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.map-controls-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--button-secondary-bg);
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.profile-button-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.control-button.profile-icon-button {
+  width: 48px; /* Робимо кнопку трохи більшою за стандартні іконки */
+  height: 32px;
+  border-radius: 10%; /* Робимо кнопку круглою */
+  padding: 0; /* Прибираємо відступи, щоб зображення заповнило кнопку */
+  overflow: hidden; /* Обрізаємо зображення по колу, якщо воно не кругле */
+}
+
+.control-button.profile-icon-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Зберігаємо пропорції зображення */
+}
+
+.profile-level-display {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--color-text);
+  background-color: rgba(0,0,0,0.1);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.control-button {
+  padding: 10px 15px;
+  background-color: var(--button-secondary-bg);
+  border: 1px solid var(--color-border);
+  color: var(--button-secondary-text);
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* This is overridden below, but keeping for standalone use */
+}
+
+/* Прибираємо індивідуальну тінь та рамку для кнопок всередині центральної панелі */
+.map-controls-center .control-button, 
+.map-controls-right .control-button,
+.map-controls-left .control-button {
+  box-shadow: none;
+  border-color: transparent;
+}
+
+/* --- Стилі для модального вікна --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative; /* ВАЖЛИВО: Встановлює контекст позиціонування для дочірніх елементів, як-от кнопка закриття */
+  background: var(--color-background);
+  padding: 25px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: var(--color-text);
+  text-align: center; /* Центруємо заголовок */
+  margin-bottom: 20px; /* Додаємо відступ для кращого вигляду */
+}
+
+.modal-content p {
+  color: var(--info-window-text);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.modal-input, .modal-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.modal-textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-button-send {
+  background-color: var(--button-primary-bg) !important;
+  color: var(--button-primary-text) !important;
+  border: none !important;
+}
+
+.modal-button-cancel {
+  background-color: #f44336 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.modal-button-cancel:hover {
+  background-color: #d32f2f !important;
+}
+
+.icon-button {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button img {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- 2. Кнопка "Cancel" з текстом (у модальних вікнах) --- */
+.modal-button-cancel {
+  background-color: #f44336; /* Завжди червоний */
+  color: white;               /* Завжди білий текст */
+  border: none;
+}
+.modal-button-cancel:hover {
+  background-color: #d32f2f !important; /* Темніший червоний при наведенні */
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  /* The main container for both top control panels */
+  .top-controls-container {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; /* Відстань між панелями */
+  }
+
+  /* Reset positioning for child panels so they obey the flex container */
+  .map-controls-center,
+  .map-controls-left,
+  .map-controls-right {
+    position: static;
+    transform: none;
+    gap: 2px;
+    padding: 3px;
+  }
+
+  /* Make icons a bit smaller on mobile */
+  .map-controls-center .icon-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .modal-content {
+    padding: 20px;
+    width: 95%;
+  }
+
+  .community-progress-container {
+    width: calc(100% - 20px);
+    max-width: none;
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+}

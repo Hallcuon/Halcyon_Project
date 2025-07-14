@@ -1,0 +1,16 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+
+# Python
+__pycache__/
+*.pyc
+MapProject/
+
+# Node
+/frontend/node_modules
+/frontend/dist
+/frontend/.env
