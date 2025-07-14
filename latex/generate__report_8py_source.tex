@@ -1,0 +1,62 @@
+\doxysection{generate\+\_\+report.\+py}
+\hypertarget{generate__report_8py_source}{}\label{generate__report_8py_source}\mbox{\hyperlink{generate__report_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00001}\mbox{\hyperlink{namespacegenerate__report}{00001}}\ \textcolor{keyword}{from}\ docx\ \textcolor{keyword}{import}\ Document}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00002}00002\ \textcolor{keyword}{from}\ docx.shared\ \textcolor{keyword}{import}\ Pt,\ Inches}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00003}00003\ \textcolor{keyword}{from}\ docx.enum.text\ \textcolor{keyword}{import}\ WD\_ALIGN\_PARAGRAPH}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00004}00004\ \textcolor{keyword}{from}\ docx.shared\ \textcolor{keyword}{import}\ RGBColor}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00005}00005\ \textcolor{keyword}{import}\ datetime}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00007}\mbox{\hyperlink{namespacegenerate__report_aaa42b84724b620be89a9e200734e1b70}{00007}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacegenerate__report_aaa42b84724b620be89a9e200734e1b70}{create\_report}}():}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00008}00008\ \ \ \ \ doc\ =\ Document()}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00009}00009\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00010}00010\ \ \ \ \ \textcolor{comment}{\#\ Налаштування\ полів\ сторінки}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00011}00011\ \ \ \ \ sections\ =\ doc.sections}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{for}\ section\ \textcolor{keywordflow}{in}\ sections:}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00013}00013\ \ \ \ \ \ \ \ \ section.top\_margin\ =\ Inches(0.8)}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00014}00014\ \ \ \ \ \ \ \ \ section.bottom\_margin\ =\ Inches(0.8)}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00015}00015\ \ \ \ \ \ \ \ \ section.left\_margin\ =\ Inches(1.0)}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00016}00016\ \ \ \ \ \ \ \ \ section.right\_margin\ =\ Inches(0.4)}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00018}00018\ \ \ \ \ \textcolor{comment}{\#\ Титульна\ сторінка}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00019}00019\ \ \ \ \ title\ =\ doc.add\_paragraph()}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00020}00020\ \ \ \ \ title\_run\ =\ title.add\_run(\textcolor{stringliteral}{'ЗВІТ\(\backslash\)nпро\ проходження\ виробничої\ практики'})}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00021}00021\ \ \ \ \ title\_run.font.size\ =\ Pt(16)}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00022}00022\ \ \ \ \ title\_run.font.bold\ =\ \textcolor{keyword}{True}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00023}00023\ \ \ \ \ title.alignment\ =\ WD\_ALIGN\_PARAGRAPH.CENTER}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00025}00025\ \ \ \ \ \textcolor{comment}{\#\ Тема}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00026}00026\ \ \ \ \ theme\ =\ doc.add\_paragraph()}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00027}00027\ \ \ \ \ theme.alignment\ =\ WD\_ALIGN\_PARAGRAPH.CENTER}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00028}00028\ \ \ \ \ theme\_run\ =\ theme.add\_run(\textcolor{stringliteral}{'\(\backslash\)nТема:\ "{}Розробка\ інтерактивної\ RPG-\/гри\ на\ основі\ веб-\/карти\ з\ використанням\ React\ та\ Django"{}'})}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00029}00029\ \ \ \ \ theme\_run.font.size\ =\ Pt(14)}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00031}00031\ \ \ \ \ \textcolor{comment}{\#\ Інформація\ про\ місце\ практики}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00032}00032\ \ \ \ \ info\ =\ doc.add\_paragraph()}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00033}00033\ \ \ \ \ info.alignment\ =\ WD\_ALIGN\_PARAGRAPH.LEFT}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00034}00034\ \ \ \ \ info.add\_run(\textcolor{stringliteral}{'\(\backslash\)nМісце\ практики:\ Проект\ "{}Halcyon\(\backslash\)'s\ Project"{}\(\backslash\)n'})}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00035}00035\ \ \ \ \ info.add\_run(\textcolor{stringliteral}{'Термін\ практики:\ 01.07.2025\ -\/\ 14.07.2025\(\backslash\)n\(\backslash\)n'})}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00037}00037\ \ \ \ \ \textcolor{comment}{\#\ Інформація\ про\ виконавця\ та\ керівників}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00038}00038\ \ \ \ \ doc.add\_paragraph(\textcolor{stringliteral}{'Виконав:\(\backslash\)nСтудент\ групи\ [Номер\ групи]\(\backslash\)n[ПІБ\ студента]\(\backslash\)n\(\backslash\)n'})}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00039}00039\ \ \ \ \ doc.add\_paragraph(\textcolor{stringliteral}{'Керівник\ практики\ від\ університету:\(\backslash\)n[Посада,\ науковий\ ступінь]\(\backslash\)n[ПІБ\ керівника]\(\backslash\)n\(\backslash\)n'})}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00040}00040\ \ \ \ \ doc.add\_paragraph(\textcolor{stringliteral}{'Керівник\ практики\ від\ підприємства:\(\backslash\)n[Посада]\(\backslash\)n[ПІБ\ керівника]\(\backslash\)n\(\backslash\)n'})}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00042}00042\ \ \ \ \ \textcolor{comment}{\#\ Місто\ та\ рік}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00043}00043\ \ \ \ \ bottom\ =\ doc.add\_paragraph()}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00044}00044\ \ \ \ \ bottom.alignment\ =\ WD\_ALIGN\_PARAGRAPH.CENTER}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00045}00045\ \ \ \ \ bottom.add\_run(\textcolor{stringliteral}{'Київ\ -\/\ 2025'})}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00047}00047\ \ \ \ \ \textcolor{comment}{\#\ Розрив\ сторінки\ перед\ змістом}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00048}00048\ \ \ \ \ doc.add\_page\_break()}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00050}00050\ \ \ \ \ \textcolor{comment}{\#\ Зміст}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00051}00051\ \ \ \ \ doc.add\_heading(\textcolor{stringliteral}{'ЗМІСТ'},\ level=1)}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00052}00052\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00053}00053\ \ \ \ \ \textcolor{comment}{\#\ Зберігаємо\ документ}}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00054}00054\ \ \ \ \ doc.save(\textcolor{stringliteral}{'d:/MapProject/report.docx'})}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00056}00056\ \textcolor{keywordflow}{if}\ \_\_name\_\_\ ==\ \textcolor{stringliteral}{"{}\_\_main\_\_"{}}:}
+\DoxyCodeLine{\Hypertarget{generate__report_8py_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{namespacegenerate__report_aaa42b84724b620be89a9e200734e1b70}{create\_report}}()}
+
+\end{DoxyCode}

@@ -13,3 +13,8 @@ npm run dev
 python manage.py reset_project_data --keep-superuser Admin
 
 ngrok http 5173
+
+Зберегли файли.
+git add . — додали зміни до наступного коміту.
+git commit -m "Описове повідомлення, що саме ви зробили" — зафіксували зміни.
+git push — відправили зміни на GitHub.
