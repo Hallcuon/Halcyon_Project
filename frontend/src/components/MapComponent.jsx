@@ -102,7 +102,7 @@ const noLabelsStyle = [
 ];
 
 const ANONYMOUS_MESSAGE_MIN_ZOOM = 1;
-const BEACON_MIN_ZOOM = 17;
+const BEACON_MIN_ZOOM = 1;
 
 function MapComponent({ placemarks, setPlacemarks, otherPlacemarks, anonymousMessages, beacons, setBeacons, theme, onFindAnonymousMessage, showLabels, mapTypeId, onOpenComments, stats }) {
   const [selected, setSelected] = useState(null);

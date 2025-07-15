@@ -22,6 +22,8 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # Get allowed hosts from environment variable, split by comma
 allowed_hosts_str = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1')
 ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
+# Додаємо 'backend' для взаємодії між контейнерами в Docker
+ALLOWED_HOSTS.append('backend')
 
 # Application definition
 
@@ -99,7 +101,16 @@ WSGI_APPLICATION = 'MapProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = { 'default': { 'ENGINE': 'django.db.backends.postgresql', 'NAME': os.getenv('DB_NAME'), 'USER': os.getenv('DB_USER'), 'PASSWORD': os.getenv('DB_PASSWORD'), 'HOST': os.getenv('DB_HOST'), 'PORT': os.getenv('DB_PORT', '5432'), } }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'mapproject_db'),
+        'USER': os.getenv('DB_USER', 'mapproject_user'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'mapproject_password'),
+        'HOST': os.getenv('DB_HOST', 'db'),  # Changed from localhost to db service name
+        'PORT': os.getenv('DB_PORT', '5432'),
+    }
+}
 
 
 # Password validation

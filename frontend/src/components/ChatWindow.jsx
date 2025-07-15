@@ -84,7 +84,9 @@ const ChatWindow = ({ isOpen, onClose, theme }) => {
             authorColor = '#333333';
           }
 
-          const avatarUrl = msg.avatar_url ? msg.avatar_url.replace('http://127.0.0.1:8000', '') : '/DefaultProfile.png';
+          // Видаляємо домен з URL аватара, щоб проксі Vite міг його обробити.
+          // Це робить URL відносним (напр. /media/avatars/image.jpg) і працює для будь-якого домену.
+          const avatarUrl = msg.avatar_url ? msg.avatar_url : '/DefaultProfile.png';
           const prevAuthor = prevMsg ? (prevMsg.author || prevMsg.author_username) : null;
 
           // Групуємо, якщо той самий автор написав повідомлення протягом останніх 5 хвилин

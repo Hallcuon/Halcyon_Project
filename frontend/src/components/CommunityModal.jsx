@@ -64,7 +64,7 @@ const CommunityModal = ({ isOpen, onClose, onAuthError }) => {
                     <li key={user.username} className="leaderboard-item">
                       <span className="leaderboard-rank">#{index + 1}</span>
                       <img 
-                        src={user.avatar_url ? user.avatar_url.replace('http://127.0.0.1:8000', '') : '/DefaultProfile.png'} 
+                        src={user.avatar_url ? user.avatar_url : '/DefaultProfile.png'} 
                         alt={`${user.username}'s avatar`} 
                         className="leaderboard-avatar" 
                       />

@@ -16,14 +16,30 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+      #sh -c "python manage.py migrate &&
+      #python manage.py reset_project_data --no-input &&
+    command: python manage.py runserver 0.0.0.0:8000 # Виправлений рядок команди
     volumes:
       - .:/app
     ports:
       - "8000:8000"
+    environment:
+      - DB_NAME=mapproject_db
+      - DB_USER=mapproject_user
+      - DB_PASSWORD=mapproject_password
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DEBUG=${DEBUG:-False}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1}
     depends_on:
       db:
         condition: service_started
+    healthcheck:
+      test: ["CMD", "python", "manage.py", "check"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
 
   frontend:
