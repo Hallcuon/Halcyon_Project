@@ -26,3 +26,8 @@ COPY . /app/
 # Make the wait script executable
 COPY ./wait-for-postgres.sh /app/wait-for-postgres.sh
 RUN chmod +x /app/wait-for-postgres.sh
+
+# Команда, яку буде виконувати Render.
+# 1. Збираємо всю статику в папку /staticfiles
+# 2. Запускаємо Gunicorn на порту, який надасть Render ($PORT)
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && gunicorn MapProject.asgi:application -k uvicorn.workers.UvicornWorker -b 0.0.0.0:$PORT"]

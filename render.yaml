@@ -1,0 +1,47 @@
+services:
+  # Сервіс бази даних PostgreSQL
+  - type: pserv
+    name: postgres-db
+    env: docker
+    dockerfilePath: ./db.Dockerfile # Потрібно створити цей файл
+    plan: free # або starter
+    autoDeploy: false
+
+  # Сервіс бекенду (Django Web Service)
+  - type: web
+    name: mapproject-backend
+    env: docker
+    plan: free # або starter
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /admin/login/ # Шлях для перевірки, що сервіс живий
+    envVars:
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: postgres-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true # Render згенерує безпечний ключ
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_HOSTS
+        # Render автоматично додасть свій домен
+        value: .onrender.com
+      - key: CORS_ALLOWED_ORIGINS
+        # Встав сюди URL твого фронтенду на Render
+        value: https://твій-фронтенд-сайт.onrender.com
+      - key: CSRF_TRUSTED_ORIGINS
+        value: https://твій-фронтенд-сайт.onrender.com
+
+  # Статичний сайт для фронтенду
+  - type: static
+    name: mapproject-frontend
+    plan: free
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_GOOGLE_MAPS_API_KEY
+        sync: false
+      - key: VITE_API_BASE_URL
+        value: https://mapproject-backend.onrender.com # URL твого бекенду

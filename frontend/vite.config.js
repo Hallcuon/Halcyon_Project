@@ -15,8 +15,10 @@ export default defineConfig({
       // Redirect API requests to the backend service inside Docker.
       '/api': {
         target: 'http://backend:8000',
+        //https://
         changeOrigin: true,
       },
+      //Якщо я захочу запустити локально НЕ в докері http://localhost:8000 - - - - - - - - - - - - - 
       // Redirect media file requests to the backend service.
       '/media': {
         target: 'http://backend:8000',
