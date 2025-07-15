@@ -18,3 +18,7 @@ ngrok http 5173
 git add . 
 git commit -m "changes"
 git push
+
+docker-compose up --build
+
+docker-compose up

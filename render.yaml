@@ -1,15 +1,15 @@
 services:
   # Managed PostgreSQL Database. Render handles backups, scaling, etc.
-  - type: database
+  - type: postgres
     name: postgres-db-managed
     databaseName: mapproject_db
     user: mapproject_user
-    plan: free # or starter
+    plan: free
 
   # Managed Redis instance for Channels (WebSocket message broker)
   - type: redis
     name: redis-channels
-    plan: free # or starter
+    plan: free
 
   # Сервіс бекенду (Django Web Service)
   - type: web
@@ -22,7 +22,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromService:
-          type: database
+          type: postgres
           name: postgres-db-managed
           property: connectionString
       - key: REDIS_URL
@@ -31,17 +31,15 @@ services:
           name: redis-channels
           property: connectionString
       - key: SECRET_KEY
-        generateValue: true # Render згенерує безпечний ключ
+        generateValue: true
       - key: DEBUG
         value: false
       - key: ALLOWED_HOSTS
-        # Render автоматично додасть свій домен
         value: .onrender.com
       - key: CORS_ALLOWED_ORIGINS
-        # Встав сюди URL твого фронтенду на Render
-        value: https://твій-фронтенд-сайт.onrender.com
+        value: https://your-frontend-site.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://твій-фронтенд-сайт.onrender.com
+        value: https://your-frontend-site.onrender.com
 
   # Статичний сайт для фронтенду
   - type: static
