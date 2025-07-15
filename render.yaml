@@ -1,16 +1,5 @@
+# Blueprint для розгортання Mapproject
 services:
-  # Managed PostgreSQL Database. Render handles backups, scaling, etc.
-  - type: postgres
-    name: postgres-db-managed
-    databaseName: mapproject_db
-    user: mapproject_user
-    plan: free
-
-  # Managed Redis instance for Channels (WebSocket message broker)
-  - type: redis
-    name: redis-channels
-    plan: free
-
   # Сервіс бекенду (Django Web Service)
   - type: web
     name: mapproject-backend
@@ -23,12 +12,12 @@ services:
       - key: DATABASE_URL
         fromService:
           type: postgres
-          name: postgres-db-managed
+          name: postgres-db-managed # Це посилається на addon нижче
           property: connectionString
       - key: REDIS_URL
         fromService:
           type: redis
-          name: redis-channels
+          name: redis-channels # Це посилається на addon нижче
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
@@ -37,22 +26,34 @@ services:
       - key: ALLOWED_HOSTS
         value: .onrender.com
       - key: CORS_ALLOWED_ORIGINS
-        value: https://your-frontend-site.onrender.com
+        value: https://your-frontend-site.onrender.com # Змініть на реальний URL фронтенду
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://your-frontend-site.onrender.com
+        value: https://your-frontend-site.onrender.com # Змініть на реальний URL фронтенду
 
   # Статичний сайт для фронтенду
   - type: static
     name: mapproject-frontend
-    # Specify the directory containing the frontend code
     rootDir: frontend
     plan: free
     buildCommand: "npm install && npm run build" # Assumes vite.config.js is correctly set up
     staticPublishPath: ./frontend/dist
     envVars:
       # This key will need to be added manually in the Render dashboard for security.
-      - key: VITE_GOOGLE_MAPS_API_KEY
+      - key: VITE_Maps_API_KEY
         sync: false
       # The base URL for the API that the frontend will call.
       - key: VITE_API_BASE_URL
-        value: https://mapproject-backend.onrender.com # URL твого бекенду
+        value: https://mapproject-backend.onrender.com # URL твого бекенду (це вже є правильно)
+
+addons:
+  # Managed PostgreSQL Database. Render handles backups, scaling, etc.
+  - type: postgres
+    name: postgres-db-managed
+    databaseName: mapproject_db
+    user: mapproject_user
+    plan: free
+
+  # Managed Redis instance for Channels (WebSocket message broker)
+  - type: redis
+    name: redis-channels
+    plan: free
