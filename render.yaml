@@ -1,11 +1,15 @@
 services:
-  # Сервіс бази даних PostgreSQL
-  - type: pserv
-    name: postgres-db
-    env: docker
-    dockerfilePath: ./db.Dockerfile # Потрібно створити цей файл
-    plan: free # або starter
-    autoDeploy: false
+  # Managed PostgreSQL Database. Render handles backups, scaling, etc.
+  - type: db
+    name: postgres-db-managed
+    databaseName: mapproject_db
+    user: mapproject_user
+    plan: free # or starter
+
+  # Managed Redis instance for Channels (WebSocket message broker)
+  - type: redis
+    name: redis-channels
+    plan: free # or starter
 
   # Сервіс бекенду (Django Web Service)
   - type: web
@@ -18,8 +22,13 @@ services:
     envVars:
       - key: DATABASE_URL
         fromService:
-          type: pserv
-          name: postgres-db
+          type: db
+          name: postgres-db-managed
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: redis-channels
           property: connectionString
       - key: SECRET_KEY
         generateValue: true # Render згенерує безпечний ключ
@@ -37,11 +46,15 @@ services:
   # Статичний сайт для фронтенду
   - type: static
     name: mapproject-frontend
+    # Specify the directory containing the frontend code
+    rootDir: frontend
     plan: free
-    buildCommand: "npm install && npm run build"
+    buildCommand: "npm install && npm run build" # Assumes vite.config.js is correctly set up
     staticPublishPath: ./frontend/dist
     envVars:
+      # This key will need to be added manually in the Render dashboard for security.
       - key: VITE_GOOGLE_MAPS_API_KEY
         sync: false
+      # The base URL for the API that the frontend will call.
       - key: VITE_API_BASE_URL
         value: https://mapproject-backend.onrender.com # URL твого бекенду

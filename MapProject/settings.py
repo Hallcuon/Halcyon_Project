@@ -58,13 +58,25 @@ ROOT_URLCONF = 'MapProject.urls'
 
 ASGI_APPLICATION = 'MapProject.asgi.application'
 
-# For development, the in-memory channel layer is sufficient.
-# For production, 'channels_redis' is recommended.
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-    },
-}
+redis_url = os.getenv('REDIS_URL')
+
+# For production, 'channels_redis' is required for WebSockets to work across multiple workers.
+# If REDIS_URL is not set (e.g., in local Docker dev), it falls back to in-memory.
+if redis_url:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [redis_url],
+            },
+        },
+    }
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels.layers.InMemoryChannelLayer",
+        },
+    }
 
 TEMPLATES = [
     {
