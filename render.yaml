@@ -4,20 +4,20 @@ services:
   - type: web
     name: mapproject-backend
     env: docker
-    plan: free # або starter
+    plan: free
     dockerContext: .
     dockerfilePath: ./Dockerfile
-    healthCheckPath: /admin/login/ # Шлях для перевірки, що сервіс живий
+    healthCheckPath: /admin/login/
     envVars:
       - key: DATABASE_URL
         fromService:
           type: postgres
-          name: postgres-db-managed # Це посилається на addon нижче
+          name: postgres-db-managed
           property: connectionString
       - key: REDIS_URL
         fromService:
           type: redis
-          name: redis-channels # Це посилається на addon нижче
+          name: redis-channels
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
@@ -31,19 +31,17 @@ services:
         value: https://your-frontend-site.onrender.com # Змініть на реальний URL фронтенду
 
   # Статичний сайт для фронтенду
-  - type: static
+  - type: static # Ось цей рядок
     name: mapproject-frontend
     rootDir: frontend
     plan: free
-    buildCommand: "npm install && npm run build" # Assumes vite.config.js is correctly set up
+    buildCommand: "npm install && npm run build"
     staticPublishPath: ./frontend/dist
     envVars:
-      # This key will need to be added manually in the Render dashboard for security.
       - key: VITE_Maps_API_KEY
         sync: false
-      # The base URL for the API that the frontend will call.
       - key: VITE_API_BASE_URL
-        value: https://mapproject-backend.onrender.com # URL твого бекенду (це вже є правильно)
+        value: https://mapproject-backend.onrender.com
 
 addons:
   # Managed PostgreSQL Database. Render handles backups, scaling, etc.
