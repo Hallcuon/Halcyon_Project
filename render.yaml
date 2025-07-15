@@ -1,6 +1,6 @@
 services:
   # Managed PostgreSQL Database. Render handles backups, scaling, etc.
-  - type: db
+  - type: database
     name: postgres-db-managed
     databaseName: mapproject_db
     user: mapproject_user
@@ -22,7 +22,7 @@ services:
     envVars:
       - key: DATABASE_URL
         fromService:
-          type: db
+          type: database
           name: postgres-db-managed
           property: connectionString
       - key: REDIS_URL
