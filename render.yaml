@@ -1,6 +1,4 @@
-# Blueprint для розгортання Mapproject
 services:
-  # Сервіс бекенду (Django Web Service)
   - type: web
     name: mapproject-backend
     env: docker
@@ -26,17 +24,17 @@ services:
       - key: ALLOWED_HOSTS
         value: .onrender.com
       - key: CORS_ALLOWED_ORIGINS
-        value: https://your-frontend-site.onrender.com # Змініть на реальний URL фронтенду
+        value: https://your-frontend-site.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://your-frontend-site.onrender.com # Змініть на реальний URL фронтенду
+        value: https://your-frontend-site.onrender.com
 
-  # Статичний сайт для фронтенду
-  - type: static # Ось цей рядок
+  - type: web
     name: mapproject-frontend
     rootDir: frontend
     plan: free
     buildCommand: "npm install && npm run build"
     staticPublishPath: ./frontend/dist
+    startCommand: "npm run serve"
     envVars:
       - key: VITE_Maps_API_KEY
         sync: false
@@ -44,14 +42,12 @@ services:
         value: https://mapproject-backend.onrender.com
 
 addons:
-  # Managed PostgreSQL Database. Render handles backups, scaling, etc.
   - type: postgres
     name: postgres-db-managed
     databaseName: mapproject_db
     user: mapproject_user
     plan: free
 
-  # Managed Redis instance for Channels (WebSocket message broker)
   - type: redis
     name: redis-channels
     plan: free
