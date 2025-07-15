@@ -99,17 +99,14 @@ WSGI_APPLICATION = 'MapProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if 'DATABASE_URL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-    }
-else:
-    # Локальна конфігурація для docker-compose залишається незмінною
-    DATABASES = { 'default': { 'ENGINE': 'django.db.backends.postgresql', 'NAME': os.getenv('DB_NAME'), 'USER': os.getenv('DB_USER'), 'PASSWORD': os.getenv('DB_PASSWORD'), 'HOST': os.getenv('DB_HOST'), 'PORT': os.getenv('DB_PORT', '5432'), } }
+DATABASES = { 'default': { 'ENGINE': 'django.db.backends.postgresql', 'NAME': os.getenv('DB_NAME'), 'USER': os.getenv('DB_USER'), 'PASSWORD': os.getenv('DB_PASSWORD'), 'HOST': os.getenv('DB_HOST'), 'PORT': os.getenv('DB_PORT', '5432'), } }
 
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+# Для Render потрібно довіряти його домену для CSRF
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -159,8 +156,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS settings for development. Allows requests from the React dev server.
 cors_origins_str = os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173')
 CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',')]
-# Для Render потрібно довіряти його домену для CSRF
-CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',')]
 
 
 REST_FRAMEWORK = {

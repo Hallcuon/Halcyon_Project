@@ -16,24 +16,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    # Використовуємо скрипт, щоб дочекатися готовності БД
-    command: ["/app/wait-for-postgres.sh", "db", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - .:/app
     ports:
       - "8000:8000"
-    environment:
-      - ALLOWED_HOSTS=localhost,127.0.0.1,backend
-      - DB_HOST=db
-      - DB_NAME=mapproject_db
-      - DB_USER=mapproject_user
-      - DB_PASSWORD=mapproject_password
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/admin/"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
     depends_on:
       db:
         condition: service_started
