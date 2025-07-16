@@ -1,6 +1,9 @@
 <p align="center">
   <img src="Logo.png" alt="Project Logo" width="200"/>
 </p>
+<p align="center">
+  <img src="frontend/public/Main.png" alt="Main" width="200"/>
+</p>
 
 # Halcyon's Project: Інтерактивна RPG-гра на мапі
 
