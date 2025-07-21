@@ -90,7 +90,10 @@ const PlacemarkSidebar = ({ placemark, onClose, authTokens, onAuthError, theme, 
               <p>Loading comments...</p>
             ) : comments.length > 0 ? (
               comments.map(comment => {
-                const avatarUrl = comment.author_avatar_url ? comment.author_avatar_url.replace('http://127.0.0.1:8000', '') : '/DefaultProfile.png';
+                const avatarUrl = comment.author_avatar_url
+                ? comment.author_avatar_url.replace(/^https?:\/\/[^/]+/, '') // видаляє будь-який домен
+                : '/DefaultProfile.png';
+
                 
                 let authorColor = comment.author_chat_color || '#FFFFFF';
                 const isDefaultColor = authorColor.toLowerCase() === '#ffffff' || authorColor.toLowerCase() === 'white';
